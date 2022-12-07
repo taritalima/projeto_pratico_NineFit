@@ -244,6 +244,7 @@ i {
   input {
     outline: none;
   }
+
   
   input:not([type="checkbox"]){
     width: 95%;

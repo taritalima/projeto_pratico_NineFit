@@ -1,83 +1,38 @@
 <?php
+$mensagem = "Preencha os dados para contato";
+$mensagem_class = "";
+$nome = "";
+$email = "";
+$msg = "";
 
-use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\SMTP;
-// use PHPMailer\PHPMailer\Exception;
-require 'mailer/PHPMailerAutoload.php';
 
-// require "../PHPMailer/src/SMTP.php";
-// require '../PHPMailer/src/Exception.php';
+if (isset($_POST["nome"], $_POST["email"], $_POST["msg"])) {
+    $conexao = new PDO("mysql:host=localhost;dbname=projeto_uninove", "root", "");
 
-// if (isset($_POST['nome']) && !empty($_POST['nome'])) {
-//     $nome = $_POST['nome'];
-// }
-// if (isset($_POST['email']) && !empty($_POST['email'])) {
-//     $email = $_POST['email'];
-// }
-if (isset($_POST['mensagem']) && !empty($_POST['mensagem'])) {
-    $mensagem = $_POST['mensagem'];
+    $nome = filter_input(INPUT_POST, "nome");
+    $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+    $msg = filter_input(INPUT_POST, "msg");
+
+
+    if (!$nome || !$email || !$msg) {
+        $mensagem = "Dados Inválidos!";
+        $mensagem_class = "erro";
+    } else {
+        $stm = $conexao->prepare('INSERT INTO contato(nome,email,descricao) VALUES(:nome,:email,:msg)');
+        $stm->bindParam('nome', $nome);
+        $stm->bindParam('email', $email);
+        $stm->bindParam('msg', $msg);
+        $stm->execute();
+
+        $mensagem = "Mensagem enviada com Sucesso!";
+
+        $nome = "";
+        $email = "";
+        $msg = "";
+    }
 }
-
-$mail = new PHPMailer;
-
-$mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->SMTPSecure = 'tls';
-$mail->Username = 'kevinblair317@gmail.com';
-$mail->Password = 'Bke1908';
-$mail->Port = 587;
-
-$mail->setFrom('kevinblair317@gmail.com', 'Destinatário');
-$mail->addAddress('kevinblair317@gmail.com', 'Remetente');
-
-$mail->isHTML(true);
-
-$mail->Body = nl2br($mensagem);
-$mail->AltBody = nl2br(strip_tags($mensagem));
-
-if (!$mail->send()) {
-    echo 'Não foi possível enviar a mensagem.<br>';
-    echo 'Erro: ' . $mail->ErrorInfo;
-} else {
-    header('Location: ../php/contato.php');
-}
-
-
-
-// $mail = new PHPMailer(true);
-// $mail->isSMTP();
-
-// try {
-//     $mail->Host = 'smtp.gmail.com';
-//     $mail->SMTPAuth = true;
-//     $mail->SMTPSecure = 'tls';
-//     $mail->Username = 'kevinblair317@gmail.com';
-//     $mail->Password = 'Bke1908@';
-//     $mail->Port = 587;
-
-//     $mail->setFrom('kevinblair317@gmail.com', 'Destinatário');
-//     $mail->addAddress('kevinblair317@gmail.com', 'Remetente');
-
-//     $mail->isHTML(true);
-//     $mail->Subject = " inscrição -  cliente Ondontotech ";
-//     $mail->Body = "Nome:";
-
-//     $mail->send();
-//     echo 'A mensagem foi enviada!';
-// } catch (Exception $e) {
-//     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-// }
-
-
-// if (mail($to, $subject, $body, $header)) {
-//     echo ("Email enviado com Sucesso!");
-// } else {
-//     echo ("o Email não pode ser Enviado");
-// }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -87,20 +42,63 @@ if (!$mail->send()) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style_home.css" media="screen" />
+    <script src="../js/index.js"></script>
+    <script src="https://kit.fontawesome.com/01a3efc6ed.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/style_contato.css">
+
 </head>
 
 <body>
-    <section class="content">
-        <div class="contato">
-            <h3>Formulário de contato</h3>
-            <form class="form" method="post" action="../php/contato.php">
-                <input class="field" name="name" placeholder="Nome">
-                <input class="field" name="email" placeholder="E-mail">
-                <textarea class="field" name="mensagem" placeholder="Digite sua mensagem aqui"></textarea>
-                <input class="field" type="submit" value="Enviar">
-            </form>
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#"><img src="../img/OdontoTech6.png"></a>
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/projeto_pratico/php/index.php"><i class="fas fa-tachometer-alt"></i>Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://localhost:8080/projeto_pratico/php/cadastro.php"><i class="far fa-clone"></i>Cadastro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/projeto_pratico/php/agendamento.php"><i class="far fa-calendar-alt"></i>Agendamento</a>
+                </li>
+            </ul>
         </div>
+    </nav>
+    <main>
+        <form method="post">
+        <h1>Contato</h1>
+            <label>Nome</label>
+            <input type="text" name="nome" value="<?= $nome ?>" required />
+
+    
+            <label>E-mail</label>
+            <input type="text" name="email" value="<?= $email ?>" required />
+
+
+            <label>Mensagem</label>
+            <textarea name="msg"><?= $nome ?></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div class="mensagem"><?= $mensagem ?>
+        </div>
+       
+
+    </main>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ $resultado = mysqli_query($conn, $result);
 
 $row = $resultado->fetch_row();
 if ($row[0] > 0) {
-    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/projeto_pratico/php/cadastro.php'>
+    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost:8080/projeto_pratico/php/cadastro.php'>
           <script type='text/javascript'>
             alert('E-mail já cadastrado, por favor tente outro.'); 
           </script>";
@@ -28,14 +28,14 @@ if ($row[0] > 0) {
 
     if (mysqli_affected_rows($conn) != 0) {
         echo "
-                    <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/projeto_pratico/php/login.php'>
+                    <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost:8080/projeto_pratico/php/login.php'>
                     <script type= 'text/javascript'>
                         alert('Usuario cadastrado com Sucesso.');
                     </script>
                 ";
     } else {
         echo "
-                    <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/projeto_pratico/php/cadastro.php'>
+                    <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost:8080/projeto_pratico/php/cadastro.php'>
                     <script type='text/javascript'>
                         alert('O Usuario não foi cadastrado com Sucesso.');
                     </script>
