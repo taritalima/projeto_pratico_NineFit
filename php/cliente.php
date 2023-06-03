@@ -1,7 +1,7 @@
 <?php
     session_start();
     header("Location: agendamento.php");
-    echo "Usuario: ". $_SESSION['usuarioNome'];   
+    echo "Bem-Vindo: ". $_SESSION['usuarioNome'];   
 
 ?>
 <br>

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    echo "Usuario: ". $_SESSION['usuarioNome'];    
+    echo "Bem Vindo: ". $_SESSION['usuarioNome'];    
 ?>
 <br>
 <a href="sair.php">Sair</a>

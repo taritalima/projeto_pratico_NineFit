@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
@@ -12,29 +13,20 @@
     <title>Home Page</title>
 
 </head>
+
 <body>
     <header>
-    <!-- Navbar -->
-    <?php include("header.php") ?>
+        <!-- Navbar -->
+        <?php include("header.php") ?>
     </header>
-    
+
     <!-- Imagem Marketing -->
-     <div class="imagem">
-            <!-- <img src="img/marketing.jpg"> -->
-     </div>
+    <div class="imagem">
+        <!-- <img src="img/marketing.jpg"> -->
+    </div>
 
     <!-- Cards com os produtos ou serviços prestados -->
-     <?php include("cards.php") ?>
-
-    <!-- Formulário de contato ou cadastro -->
-    <div>
-        
-    </div>
-
-    <!-- Agendamentos -->
-    <div>
-        
-    </div>
+    <?php include("cards.php") ?>
 
     <!-- footer / Informações adicionais e criadores -->
     <div>
@@ -42,4 +34,5 @@
     </div>
 
 </body>
+
 </html>

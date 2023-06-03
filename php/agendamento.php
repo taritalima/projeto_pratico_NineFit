@@ -1,9 +1,8 @@
 <?php
 session_start();
-echo "Usuario: ". $_SESSION['usuarioNome'];
+echo  "<b><font color=\"#FFFFF\"> Bem Vindo: </font></b>"  . $_SESSION['usuarioNome'];
 
 
-$mensagem = "Preencha os dados do formulário";
 $mensagem_class = "";
 $nome = "";
 $sobrenome = "";
@@ -13,11 +12,9 @@ $msg = "";
 
 
 if (isset($_SESSION['email'])) {
-      include_once 'login.php';
+    include_once 'login.php';
     exit;
-}
-
-elseif(!isset($_SESSION['usuarioNome'])) {
+} elseif (!isset($_SESSION['usuarioNome'])) {
     header('Location: login.php?erro=true');
     exit;
 }
@@ -44,7 +41,12 @@ if (isset($_POST["nome"], $_POST["sobrenome"], $_POST["email"], $_POST["telefone
         $stm->bindParam('msg', $msg);
         $stm->execute();
 
-        $mensagem = "Mensagem enviada com Sucesso!";
+        echo "
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost:8080/projeto_pratico%20_2/php/login.php'>
+        <script type= 'text/javascript'>
+            alert('Usuario cadastrado com Sucesso.');
+        </script>
+    ";
 
         $nome = "";
         $sobrenome = "";
@@ -79,7 +81,7 @@ if (isset($_POST["nome"], $_POST["sobrenome"], $_POST["email"], $_POST["telefone
 
 <body>
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="#"><img src="../img/OdontoTech6.png"></a>
+        <a class="navbar-brand navbar-logo" href="#"><img src="../img/logofit1.png"></a>
         <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
@@ -90,23 +92,20 @@ if (isset($_POST["nome"], $_POST["sobrenome"], $_POST["email"], $_POST["telefone
                     <div class="right"></div>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/projeto_pratico/php/index.php"><i class="fas fa-tachometer-alt"></i>Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Contato</a>
+                    <a class="nav-link" href="http://localhost:8080/projeto_pratico%20_2/php/index.php"><i class="fas fa-tachometer-alt"></i>Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Cadastro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/projeto_pratico/php/agendamento.php"><i class="far fa-calendar-alt"></i>Agendamento</a>
+                    <a class="nav-link" href="http://localhost:8080/projeto_pratico%20_2/php/agendamento.php"><i class="far fa-calendar-alt"></i>Agendamento</a>
                 </li>
             </ul>
         </div>
     </nav>
     <main>
         <form method="post">
-        <h1>Agendamento</h1>
+            <h1>Agendamento</h1>
             <label>Nome</label>
             <input type="text" name="nome" value="<?= $nome ?>" required />
 
@@ -123,8 +122,6 @@ if (isset($_POST["nome"], $_POST["sobrenome"], $_POST["email"], $_POST["telefone
             <textarea name="msg"><?= $nome ?></textarea>
             <button type="submit">Enviar</button>
         </form>
-
-        <div class="mensagem"><?= $mensagem ?>
         </div>
 
     </main>
