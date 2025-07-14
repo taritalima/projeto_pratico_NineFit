@@ -1,4 +1,4 @@
-# projeto_pratico-_2
+# Projeto Pratico Uninove 
 projeto desenvolvido em php , com banco de dados mysql
 
 banco de dados 
